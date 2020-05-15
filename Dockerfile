@@ -16,6 +16,8 @@ RUN mkdir /home/music
 RUN mkdir /home/db
 
 ADD /pimix-data/dist /home/pimix-data
+ADD /pimix-player/app /home/pimix-player
+
 ADD /pimix-data/migrations /home/pimix-data/migrations
 ADD /pimix-data/seeders /home/pimix-data/seeders
 ADD /pimix-data/config/config.json /home/pimix-data/config/config.json
