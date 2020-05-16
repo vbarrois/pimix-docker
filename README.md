@@ -1,5 +1,5 @@
 ```sh
-docker build . -f pimix-docker/Dockerfile -t pimix
+docker build . -f pimix-docker/Dockerfile -t vbarrois/pimix:latest
 ```
 
 ```sh
