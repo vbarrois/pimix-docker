@@ -8,30 +8,30 @@ ENV WAIT_VERSION 2.7.3
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
 RUN chmod +x /wait
 
-ADD pimix-docker/package.json /home/package.json
-ADD pimix-docker/startup.sh /home/startup.sh
-RUN chmod +x /home/startup.sh
+RUN mkdir /usr/src/pimix
+ADD pimix-docker/package.json /usr/src/pimix/package.json
+ADD pimix-docker/startup.sh /usr/src/pimix/startup.sh
+RUN chmod +x /usr/src/pimix/startup.sh
 
-RUN mkdir /home/music
-RUN mkdir /home/db
+RUN mkdir /home/pi
+RUN mkdir /home/pi/music
 
-ADD /pimix-data/dist /home/pimix-data
-ADD /pimix-player/app /home/pimix-player
+ADD /pimix-data/dist /usr/src/pimix/pimix-data
+ADD /pimix-data/migrations /usr/src/pimix/pimix-data/migrations
+ADD /pimix-data/seeders /usr/src/pimix/pimix-data/seeders
+ADD /pimix-docker/dbconfig.json /usr/src/pimix/pimix-data/config/config.json
+ADD /pimix-ui/dist /usr/src/pimix/pimix-ui
+ADD /pimix-router/dist /usr/src/pimix/pimix-router
+ADD /pimix-docker/redis.conf /etc/redis/redis.conf
+ADD /pimix-player/app /home/pi/pimix-player
 
-ADD /pimix-data/migrations /home/pimix-data/migrations
-ADD /pimix-data/seeders /home/pimix-data/seeders
-ADD /pimix-data/config/config.json /home/pimix-data/config/config.json
-ADD /pimix-ui/dist /home/pimix-ui
-ADD /pimix-router/dist /home/pimix-router
-
-COPY pimix-docker/redis.conf /etc/redis/redis.conf
 # COPY ./redis.service /etc/systemd/system/redis.system
 RUN adduser --system --group --no-create-home redis
 RUN chown redis:redis /var/lib/redis
 RUN chmod 770 /var/lib/redis
 
-RUN cd /home && npm install
+RUN cd /usr/src/pimix && npm install
 
 ENV NODE_ENV production
 
-ENTRYPOINT [ "/home/startup.sh" ]
+ENTRYPOINT [ "/usr/src/pimix/startup.sh" ]

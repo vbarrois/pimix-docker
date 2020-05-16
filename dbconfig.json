@@ -1,0 +1,10 @@
+{
+  "production": {
+    "dialect": "sqlite",
+    "storage": "/home/pi/pimix.sqlite3",
+    "seederStorage": "sequelize",
+    "logging": false,
+    "musicfolder": "/home/pi/music/wbom",
+    "coverfolder": "/home/pi/music/covers"
+  }
+}
