@@ -13,8 +13,8 @@ ADD pimix-docker/package.json /usr/src/pimix/package.json
 ADD pimix-docker/startup.sh /usr/src/pimix/startup.sh
 RUN chmod +x /usr/src/pimix/startup.sh
 
-RUN mkdir /home/pi
-RUN mkdir /home/pi/music
+RUN mkdir /home/music
+RUN mkdir /home/covers
 
 ADD /pimix-data/dist /usr/src/pimix/pimix-data
 ADD /pimix-data/migrations /usr/src/pimix/pimix-data/migrations
@@ -33,5 +33,7 @@ RUN chmod 770 /var/lib/redis
 RUN cd /usr/src/pimix && npm install
 
 ENV NODE_ENV production
+ENV MUSIC_FOLDER /home/music
+ENV COVER_FOLDER /home/covers
 
 ENTRYPOINT [ "/usr/src/pimix/startup.sh" ]
