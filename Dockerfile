@@ -8,6 +8,8 @@ ENV WAIT_VERSION 2.7.3
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
 RUN chmod +x /wait
 
+ADD /pimix-docker/max_user_watches /proc/sys/fs/inotify/max_user_watches
+
 RUN mkdir /usr/src/pimix
 ADD pimix-docker/package.json /usr/src/pimix/package.json
 ADD pimix-docker/startup.sh /usr/src/pimix/startup.sh
@@ -23,7 +25,7 @@ ADD /pimix-docker/dbconfig.json /usr/src/pimix/pimix-data/config/config.json
 ADD /pimix-ui/dist /usr/src/pimix/pimix-ui
 ADD /pimix-router/dist /usr/src/pimix/pimix-router
 ADD /pimix-docker/redis.conf /etc/redis/redis.conf
-ADD /pimix-player/app /home/pi/pimix-player
+ADD /pimix-player/app /home/pimix-player
 
 # COPY ./redis.service /etc/systemd/system/redis.system
 RUN adduser --system --group --no-create-home redis
