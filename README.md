@@ -48,6 +48,7 @@ sudo reboot
 ```
 ```sh
 docker run -d --name pimix -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:latest
+sudo chown -R pi:pi /home/music
 cd /home/pimix-player
 java -jar pimix-player.jar
 ```
