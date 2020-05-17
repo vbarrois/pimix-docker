@@ -1,9 +1,35 @@
-Pimix Installation Guide
+# Pimix Installation Guide
 
-Get the Raspbian Buster Lite image (https://www.raspberrypi.org/downloads/raspbian/)
+## Pi4 installation
 
-Burn the Buster image on SD with Balena Etcher (https://www.balena.io/etcher/)
+### Burn Raspbian image
+Download the Raspbian Buster Lite image (https://www.raspberrypi.org/downloads/raspbian/)
 
+Burn the Buster image to the SD with Balena Etcher (https://www.balena.io/etcher/)
+
+### Enable SSH
+Pull the SD card out then plug it back in, use a file explorer to create an empty ssh file in the root of the boot disk
+
+### Add WIFI Network
+Create a file in the root of boot called: ```wpa_supplicant.conf```. Then paste the following into it (adjusting for your [ISO 3166 alpha-2 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes), network name and network password):
+
+```
+country=US
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+update_config=1
+
+network={
+    ssid="NETWORK-NAME"
+    psk="NETWORK-PASSWORD"
+}
+```
+### First start
+
+Eject the micro SD card, boot the Raspberry Pi and login over Wifi
+```sh
+ssh-keygen -R raspberrypi.local
+ssh pi@raspberry.local
+```
 
 
 
