@@ -1,6 +1,6 @@
 Pimix Installation Guide
 
-Get the Raspbian Buster Lite image (https://www.raspberrypi.org/downloads/raspbian/)
+Get the Raspbian Buster Lite image (https://www.raspberrypi.org/downloads/raspbian/)``
 Burn the Buster image on SD with Balena Etcher (https://www.balena.io/etcher/)
 
 
