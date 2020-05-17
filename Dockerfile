@@ -15,6 +15,7 @@ ADD pimix-docker/package.json /usr/src/pimix/package.json
 ADD pimix-docker/startup.sh /usr/src/pimix/startup.sh
 RUN chmod +x /usr/src/pimix/startup.sh
 
+RUN mkdir /home/pimix-player
 RUN mkdir /home/music
 RUN mkdir /home/covers
 
@@ -25,7 +26,7 @@ ADD /pimix-docker/dbconfig.json /usr/src/pimix/pimix-data/config/config.json
 ADD /pimix-ui/dist /usr/src/pimix/pimix-ui
 ADD /pimix-router/dist /usr/src/pimix/pimix-router
 ADD /pimix-docker/redis.conf /etc/redis/redis.conf
-ADD /pimix-player/app /home/pimix-player
+ADD /pimix-player/app /usr/src/pimix/pimix-player
 
 # COPY ./redis.service /etc/systemd/system/redis.system
 RUN adduser --system --group --no-create-home redis
