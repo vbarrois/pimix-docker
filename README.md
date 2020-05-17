@@ -55,6 +55,10 @@ java -jar pimix-player.jar
 
 Now you can just upload your mp3 files with your prefered ftp-client directly into /home/music
 
+###Setup output volume
+```sh
+alsamixer
+```
 
 ## Docker build section -- ignore it !
 
