@@ -41,6 +41,10 @@ Select the options for changing the hostname and password. On a new image, it is
 sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo  apt-get install curl -y
+curl -sSL https://get.docker.com | sh
+usermod -aG docker pi
+
+
 ```
 
 
@@ -58,6 +62,6 @@ docker run -ti --name pimix -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/p
 ```
 
 ```sh
-docker tag local-image:tagname new-repo:tagname
-docker push new-repo:tagname
+docker tag vbarrois/pimix:latest pimix:latest
+docker push vbarrois/pimix:latest
 ```
