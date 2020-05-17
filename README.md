@@ -40,7 +40,10 @@ Select the options for changing the hostname and password. On a new image, it is
 ```sh
 sudo apt-get update -y
 sudo apt-get upgrade -y
+sudo  apt-get install curl -y
 ```
+
+
 
 
 
