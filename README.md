@@ -31,6 +31,19 @@ ssh-keygen -R raspberrypi.local
 ssh pi@raspberry.local
 ```
 
+### Software installation
+```sh
+sudo raspi-config
+```
+Select the options for changing the hostname and password. On a new image, it is also recommended to expand the file system (now under the Advanced options). Once the changes are made, reboot.
+
+```sh
+sudo apt-get update -y
+sudo apt-get upgrade -y
+```
+
+
+
 
 
 ```sh
