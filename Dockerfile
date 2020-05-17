@@ -8,9 +8,8 @@ ENV WAIT_VERSION 2.7.3
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/$WAIT_VERSION/wait /wait
 RUN chmod +x /wait
 
-ADD /pimix-docker/max_user_watches /proc/sys/fs/inotify/max_user_watches
-
 RUN mkdir /usr/src/pimix
+
 ADD pimix-docker/package.json /usr/src/pimix/package.json
 ADD pimix-docker/startup.sh /usr/src/pimix/startup.sh
 RUN chmod +x /usr/src/pimix/startup.sh
