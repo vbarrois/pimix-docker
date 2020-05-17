@@ -27,7 +27,6 @@ ADD /pimix-router/dist /usr/src/pimix/pimix-router
 ADD /pimix-docker/redis.conf /etc/redis/redis.conf
 ADD /pimix-player/app /usr/src/pimix/pimix-player
 
-# COPY ./redis.service /etc/systemd/system/redis.system
 RUN adduser --system --group --no-create-home redis
 RUN chown redis:redis /var/lib/redis
 RUN chmod 770 /var/lib/redis
