@@ -67,6 +67,9 @@ docker system prune
 ```
 
 ## Docker build section -- ignore it !
+```sh
+docker pull vbarrois/pimix
+```
 
 ```sh
 docker build . -f pimix-docker/Dockerfile -t vbarrois/pimix:latest
