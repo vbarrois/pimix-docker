@@ -42,13 +42,14 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo  apt-get install curl -y
 curl -sSL https://get.docker.com | sh
-usermod -aG docker pi
+sudo usermod -aG docker pi
 sudo apt-get install default-jre -y
 echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf && sudo sysctl --system
 sudo reboot
 ```
 ```sh
 docker run -d --name pimix -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:latest
+docker run -d --name Deezldr -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -p 83:1730 bocki/deezloaderrmx
 sudo chown -R pi:pi /home/music
 cd /home/pimix-player
 java -jar pimix-player.jar
@@ -65,8 +66,25 @@ alsamixer
 ```sh
 docker system prune
 ```
+### Bluetooth -- in dev
+```sh
+sudo apt-get install pulseaudio pulseaudio-module-bluetooth bluez-firmware bluez-tools
+sudo usermod -a -G bluetooth pi
+pulseaudio --start
+sudo bluetoothctl
+power on
+agent on
+default-agent
+scan on
+trust <address>
+pair <address>
+connect <address>
+```
 
 ## Docker build section -- ignore it !
+```sh
+docker pull vbarrois/pimix
+```
 
 ```sh
 docker build . -f pimix-docker/Dockerfile -t vbarrois/pimix:latest
