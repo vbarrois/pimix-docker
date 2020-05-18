@@ -66,6 +66,20 @@ alsamixer
 ```sh
 docker system prune
 ```
+### Bluetooth -- in dev
+sudo apt-get install pulseaudio pulseaudio-module-bluetooth bluez-firmware bluez-tools
+sudo usermod -a -G bluetooth pi
+pulseaudio --start
+sudo bluetoothctl
+power on
+agent on
+default-agent
+scan on
+trust <address>
+pair <address>
+connect <address>
+
+
 
 ## Docker build section -- ignore it !
 ```sh
