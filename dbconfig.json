@@ -3,8 +3,6 @@
     "dialect": "sqlite",
     "storage": "/home/pimix.sqlite3",
     "seederStorage": "sequelize",
-    "logging": false,
-    "musicfolder": "/home/music",
-    "coverfolder": "/home/covers"
+    "logging": false
   }
 }
