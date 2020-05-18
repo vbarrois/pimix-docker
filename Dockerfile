@@ -22,26 +22,34 @@ RUN mkdir /home/covers
 
 RUN npm install webpack webpack-cli 
 
-RUN mkdir /usr/src/pimix/tmp
-ADD /pimix-data /usr/src/pimix/tmp/pimix-data
+ADD /pimix-data/package.json /usr/src/pimix/tmp/pimix-data/package.json
+ADD /pimix-data/.eslintrc /usr/src/pimix/tmp/pimix-data/.eslintrc
+ADD /pimix-data/webpack.config.js /usr/src/pimix/tmp/pimix-data/webpack.config.js
+ADD /pimix-data/config /usr/src/pimix/tmp/pimix-data/config
+ADD /pimix-data/src /usr/src/pimix/tmp/pimix-data/src
 RUN cd /usr/src/pimix/tmp/pimix-data && npm install && rm -rf dist && npx webpack
 RUN mv /usr/src/pimix/tmp/pimix-data/dist /usr/src/pimix/pimix-data
-RUN rm -R /usr/src/pimix/tmp
+ADD /pimix-data/config /usr/src/pimix/pimix-data/config
 ADD /pimix-data/migrations /usr/src/pimix/pimix-data/migrations
 ADD /pimix-data/seeders /usr/src/pimix/pimix-data/seeders
-ADD /pimix-docker/dbconfig.json /usr/src/pimix/pimix-data/config/config.json
 
-RUN mkdir /usr/src/pimix/tmp
-ADD /pimix-router /usr/src/pimix/tmp/pimix-router
+ADD /pimix-router/package.json /usr/src/pimix/tmp/pimix-router/package.json
+ADD /pimix-router/.eslintrc /usr/src/pimix/tmp/pimix-router/.eslintrc
+ADD /pimix-router/tsconfig.json /usr/src/pimix/tmp/pimix-router/tsconfig.json
+ADD /pimix-router/webpack.config.js /usr/src/pimix/tmp/pimix-router/webpack.config.js
+ADD /pimix-router/src /usr/src/pimix/tmp/pimix-router/src
 RUN cd /usr/src/pimix/tmp/pimix-router && npm install && rm -rf dist && npx webpack
 RUN mv /usr/src/pimix/tmp/pimix-router/dist /usr/src/pimix/pimix-router
-RUN rm -R /usr/src/pimix/tmp
 
-RUN mkdir /usr/src/pimix/tmp
-ADD /pimix-ui /usr/src/pimix/tmp/pimix-ui
-
+ADD /pimix-ui/package.json /usr/src/pimix/tmp/pimix-ui/package.json
+ADD /pimix-ui/.babelrc /usr/src/pimix/tmp/pimix-ui/.babelrc
+ADD /pimix-ui/tsconfig.json /usr/src/pimix/tmp/pimix-ui/tsconfig.json
+ADD /pimix-ui/webpack.config.js /usr/src/pimix/tmp/pimix-ui/webpack.config.js
+ADD /pimix-ui/webpack.server.config.js /usr/src/pimix/tmp/pimix-ui/webpack.server.config.js
+ADD /pimix-ui/src /usr/src/pimix/tmp/pimix-ui/src
 RUN cd /usr/src/pimix/tmp/pimix-ui && npm install && rm -rf dist && npx webpack --config webpack.server.config.js && npx webpack --config webpack.config.js
 RUN mv /usr/src/pimix/tmp/pimix-ui/dist /usr/src/pimix/pimix-ui
+
 RUN rm -R /usr/src/pimix/tmp
 
 ADD /pimix-docker/redis.conf /etc/redis/redis.conf
