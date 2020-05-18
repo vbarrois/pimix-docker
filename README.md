@@ -42,7 +42,7 @@ sudo apt-get update -y
 sudo apt-get upgrade -y
 sudo  apt-get install curl -y
 curl -sSL https://get.docker.com | sh
-usermod -aG docker pi
+sudo usermod -aG docker pi
 sudo apt-get install default-jre -y
 echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf && sudo sysctl --system
 sudo reboot
