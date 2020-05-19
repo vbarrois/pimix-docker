@@ -5,7 +5,6 @@ redis-server&
 cp -a /usr/src/pimix/pimix-player/. /home/pimix-player
 
 cd /usr/src/pimix/pimix-data
-npx sequelize-cli db:migrate 
 npx sequelize-cli db:seed:all
 
 cd /usr/src/pimix
