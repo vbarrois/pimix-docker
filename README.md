@@ -89,8 +89,8 @@ docker pull vbarrois/pimix
 ## Build distros
 ### Packaging the Pimix Release
 ```
-.
 ~/projects
+    .
     +-- pimix
     |   +-- pimix-data
     |   +-- pimix-router
