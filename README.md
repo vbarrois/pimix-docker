@@ -86,8 +86,11 @@ connect <address>
 docker pull vbarrois/pimix
 ```
 
+### Build distro
 ```sh
-docker build . -f pimix-docker/Dockerfile -t vbarrois/pimix:latest
+docker build . -f pimix-docker/Build -t vbarrois/pimix-builder:latest
+docker run -ti --name pimix-build -v ~/projects/pimix/pimix-docker/dist:/home/pimix-dist vbarrois/pimix-builder:latest    
+
 ```
 
 ```sh
