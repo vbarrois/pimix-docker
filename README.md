@@ -90,12 +90,13 @@ docker pull vbarrois/pimix
 ### Packaging the Pimix Release
 ```
 .
-+-- pimix
-|   +-- pimix-data
-|   +-- pimix-router
-|   +-- pimix-ui
-|   +-- pimix-docker
-|   |   +-- dist
+~/projects
+    +-- pimix
+    |   +-- pimix-data
+    |   +-- pimix-router
+    |   +-- pimix-ui
+    |   +-- pimix-docker
+    |   |   +-- dist
 ```
 ```sh
 docker build . -f pimix-docker/Build -t vbarrois/pimix-builder:latest
