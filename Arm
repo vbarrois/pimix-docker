@@ -1,0 +1,33 @@
+FROM node:slim
+
+ENV NODE_ENV production
+
+# install make and python to compile nodejs/sqlite3 on arch architecture
+RUN apt-get update || : && apt-get install -y build-essential python nano redis-server
+
+RUN mkdir /usr/src/pimix
+
+ADD package.json /usr/src/pimix/package.json
+ADD startup.sh /usr/src/pimix/startup.sh
+RUN chmod +x /usr/src/pimix/startup.sh
+
+RUN mkdir /home/pimix-player
+RUN mkdir /home/music
+RUN mkdir /home/covers
+
+ADD /dist/pimix-data /usr/src/pimix/pimix-data
+ADD /dist/pimix-router /usr/src/pimix/pimix-router
+ADD /dist/pimix-ui /usr/src/pimix/pimix-ui
+ADD /dist/pimix-player /usr/src/pimix/pimix-player
+
+ADD /redis.conf /etc/redis/redis.conf
+RUN adduser --system --group --no-create-home redis
+RUN chown redis:redis /var/lib/redis
+RUN chmod 770 /var/lib/redis
+
+RUN cd /usr/src/pimix && npm install
+
+ENV MUSIC_FOLDER /home/music
+ENV COVER_FOLDER /home/covers
+
+CMD ["/usr/src/pimix/startup.sh"]
