@@ -92,7 +92,7 @@ docker pull vbarrois/pimix
 docker build . -f pimix-docker/Build -t vbarrois/pimix-builder:latest
 docker run -ti --name pimix-build -v ~/projects/pimix/pimix-docker/dist:/home/pimix-dist vbarrois/pimix-builder:latest    
 ```
-### Build on linux/arm the Pimix Image
+### Build the Pimix Image on linux/arm
 ```sh
 docker build . -f Arm -t vbarrois/pimix:arm
 docker tag vbarrois/pimix:arm pimix:arm
