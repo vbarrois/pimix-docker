@@ -89,17 +89,18 @@ docker pull vbarrois/pimix
 ## Build distros
 ### Packaging the Pimix Release
 ```
-.
-+-- pimix
-|   +-- pimix-data
-|   +-- pimix-router
-|   +-- pimix-ui
-|   +-- pimix-docker
-|   |   +-- dist
+~/projects
+    .
+    +-- pimix
+    |   +-- pimix-data
+    |   +-- pimix-router
+    |   +-- pimix-ui
+    |   +-- pimix-docker
+    |   |   +-- dist
 ```
 ```sh
 docker build . -f pimix-docker/Build -t vbarrois/pimix-builder:latest
-docker run -ti --name pimix-build -v ~/projects/pimix/pimix-docker/dist:/home/pimix-dist vbarrois/pimix-builder:latest    
+docker run -ti --name pimix-build -v ~/projects/pimix/pimix-docker/dist:/home vbarrois/pimix-builder:latest    
 ```
 ### Build the Pimix Image on linux/arm
 ```sh
