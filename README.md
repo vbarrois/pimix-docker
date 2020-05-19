@@ -109,3 +109,8 @@ docker build . -f Arm -t vbarrois/pimix:arm
 docker tag vbarrois/pimix:arm pimix:arm
 docker push vbarrois/pimix:arm
 ```
+
+### JAVA remote debugging
+```sh
+java -Xdebug -Xrunjdwp:transport=dt_socket,address=0.0.0.0:8000,server=y,suspend=y -Dfile.encoding=UTF-8 -jar pimix-player.jar
+```
