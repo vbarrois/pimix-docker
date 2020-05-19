@@ -29,7 +29,7 @@ ADD /pimix-ui/package.json /usr/src/pimix/tmp/pimix-ui/package.json
 ADD /pimix-ui/.babelrc /usr/src/pimix/tmp/pimix-ui/.babelrc
 ADD /pimix-ui/tsconfig.json /usr/src/pimix/tmp/pimix-ui/tsconfig.json
 ADD /pimix-ui/webpack.config.js /usr/src/pimix/tmp/pimix-ui/webpack.config.js
-ADD /pimix-ui/webpack.server.config.js /usr/src/pimix/tmp/pimix-ui/webpack.server.con fig.js
+ADD /pimix-ui/webpack.server.config.js /usr/src/pimix/tmp/pimix-ui/webpack.server.config.js
 ADD /pimix-ui/src /usr/src/pimix/tmp/pimix-ui/src
 RUN cd /usr/src/pimix/tmp/pimix-ui && npm install && rm -rf dist && npx webpack --config webpack.server.config.js && npx webpack --config webpack.config.js
 RUN mv /usr/src/pimix/tmp/pimix-ui/dist /usr/src/pimix/pimix-ui
