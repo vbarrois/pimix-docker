@@ -48,6 +48,7 @@ echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-wat
 sudo reboot
 ```
 ```sh
+docker pull vbarrois/pimix:arm
 docker run -d --name pimix -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
 docker run -d --name Deezldr -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -p 83:1730 bocki/deezloaderrmx
 sudo chown -R pi:pi /home/music
@@ -107,4 +108,9 @@ docker run -ti --name pimix-build -v ~/projects/pimix/pimix-docker/dist:/home vb
 docker build . -f Arm -t vbarrois/pimix:arm
 docker tag vbarrois/pimix:arm pimix:arm
 docker push vbarrois/pimix:arm
+```
+
+### JAVA remote debugging
+```sh
+java -Xdebug -Xrunjdwp:transport=dt_socket,address=0.0.0.0:8000,server=y,suspend=y -Dfile.encoding=UTF-8 -jar pimix-player.jar
 ```
