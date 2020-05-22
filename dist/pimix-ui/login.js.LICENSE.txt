@@ -44,6 +44,8 @@
 
 /*! https://mths.be/utf8js v2.1.2 by @mathias */
 
+/*! nouislider - 14.5.0 - 5/11/2020 */
+
 /**
   * vue-class-component v7.2.3
   * (c) 2015-present Evan You
