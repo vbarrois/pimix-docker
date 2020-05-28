@@ -1,0 +1,14 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "seederStorage": "sequelize",
+    "storage": "./pimix.sqlite3",
+    "logging": false
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "/home/pimix.sqlite3",
+    "seederStorage": "sequelize",
+    "logging": false
+  }
+}
