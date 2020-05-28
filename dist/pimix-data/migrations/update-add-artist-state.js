@@ -10,8 +10,7 @@ module.exports = {
         allowNull: false,
         defaultValue: true
       }
-    );
-
+    )
   },
 
   down: function(queryInterface, Sequelize) {

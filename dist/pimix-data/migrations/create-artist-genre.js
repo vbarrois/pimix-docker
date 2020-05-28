@@ -1,22 +1,22 @@
 'use strict'
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('SongArtists', {
-      song_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Songs',
-          key: 'id'
-        },
-        onDelete: 'cascade',
-        onUpdate: 'cascade'
-      },
+    return queryInterface.createTable('ArtistGenres', {
       artist_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'Artists',
+          key: 'id'
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade'
+      },
+      genre_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Genres',
           key: 'id'
         },
         onDelete: 'cascade',
@@ -33,12 +33,12 @@ module.exports = {
     }, {
       uniqueKeys: {
         actions_unique: {
-          fields: ['song_id', 'artist_id']
+          fields: ['artist_id', 'genre_id']
         }
       }
     })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('SongArtists')
+    return queryInterface.dropTable('ArtistGenres')
   }
 }

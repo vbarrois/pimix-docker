@@ -1,16 +1,12 @@
 'use strict'
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('SongArtists', {
-      song_id: {
-        type: Sequelize.INTEGER,
+    return queryInterface.createTable('ArtistRelated', {
+      id: {
         allowNull: false,
-        references: {
-          model: 'Songs',
-          key: 'id'
-        },
-        onDelete: 'cascade',
-        onUpdate: 'cascade'
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
       },
       artist_id: {
         type: Sequelize.INTEGER,
@@ -22,6 +18,22 @@ module.exports = {
         onDelete: 'cascade',
         onUpdate: 'cascade'
       },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      spotifyId: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      popularity: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      followers: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -30,15 +42,9 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    }, {
-      uniqueKeys: {
-        actions_unique: {
-          fields: ['song_id', 'artist_id']
-        }
-      }
     })
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('SongArtists')
+    return queryInterface.dropTable('ArtistRelated')
   }
 }

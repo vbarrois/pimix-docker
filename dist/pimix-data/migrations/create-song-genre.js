@@ -30,6 +30,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
+    }, {
+      uniqueKeys: {
+        actions_unique: {
+          fields: ['song_id', 'genre_id']
+        }
+      }
     })
   },
   down: (queryInterface, Sequelize) => {
