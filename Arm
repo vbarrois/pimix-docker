@@ -19,13 +19,13 @@ ADD /dist/pimix-data /usr/src/pimix/pimix-data
 ADD /dist/pimix-router /usr/src/pimix/pimix-router
 ADD /dist/pimix-ui /usr/src/pimix/pimix-ui
 ADD /dist/pimix-player /usr/src/pimix/pimix-player
-ADD /dist/mp3gain /usr/src/mp3gain
 
 ADD /redis.conf /etc/redis/redis.conf
 RUN adduser --system --group --no-create-home redis
 RUN chown redis:redis /var/lib/redis
 RUN chmod 770 /var/lib/redis
 
+ADD /mp3gain /usr/src/mp3gain
 RUN cd /usr/src/mp3gain && make install
 
 RUN cd /usr/src/pimix && npm install

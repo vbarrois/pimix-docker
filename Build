@@ -17,8 +17,6 @@ ADD /pimix-data/config /usr/src/pimix/pimix-data/config
 ADD /pimix-data/migrations /usr/src/pimix/pimix-data/migrations
 ADD /pimix-data/seeders /usr/src/pimix/pimix-data/seeders
 
-ADD /pimix-data/mp3gain /usr/src/pimix/mp3gain
-
 ADD /pimix-router/package.json /usr/src/pimix/tmp/pimix-router/package.json
 ADD /pimix-router/.eslintrc /usr/src/pimix/tmp/pimix-router/.eslintrc
 ADD /pimix-router/tsconfig.json /usr/src/pimix/tmp/pimix-router/tsconfig.json
