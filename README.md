@@ -49,14 +49,18 @@ sudo reboot
 ```
 ```sh
 docker pull vbarrois/pimix:arm
-docker run -d --name pimix -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
-docker run -d --name Deezldr -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -p 83:1730 bocki/deezloaderrmx
+docker run -d --name pimix --restart always -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
+docker run -d --name Deezldr --restart always -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -p 83:1730 bocki/deezloaderrmx
 sudo chown -R pi:pi /home/music
 cd /home/pimix-player
 java -jar pimix-player.jar
 ```
 
 Now you can just upload your mp3 files with your prefered ftp-client directly into /home/music
+
+### Set Pimix as a Service
+
+
 
 ### Setup output volume
 ```sh
