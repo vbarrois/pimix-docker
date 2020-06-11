@@ -92,6 +92,11 @@ cd /home/pimix-player
 sudo /usr/bin/java -jar pimix-player.jar
 ```
 
+```sh
+sudo chown pi:pi /home/pi/start-player
+sudo chmod u+x /home/pi/start-player
+```
+
 Start the service
 
 ```sh
