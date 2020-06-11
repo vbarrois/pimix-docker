@@ -60,7 +60,46 @@ Now you can just upload your mp3 files with your prefered ftp-client directly in
 
 ### Set Pimix as a Service
 
+```sh
+sudo nano /etc/systemd/system/pimix.service
+```
+Copy/paste the following content
 
+```sh
+[Unit]
+Description=PIMIX
+[Service]
+User=pi
+WorkingDirectory=/home/pimix-player
+ExecStart=/home/pi/start-player
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
+```
+
+```sh
+sudo nano /home/pi/start-player
+```
+
+Copy/paste the following content
+
+```sh
+#!/bin/sh
+cd /home/pimix-player
+sudo /usr/bin/java -jar pimix-player.jar
+```
+
+Start the service
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable pimix.service
+sudo systemctl start pimix
+sudo systemctl status pimix
+```
 
 ### Setup output volume
 ```sh
