@@ -178,6 +178,45 @@ address=/gw.wlan/192.168.4.1
 
 The Raspberry Pi will deliver IP addresses between 192.168.4.2 and 192.168.4.20, with a lease time of 24 hours, to wireless DHCP clients. You should be able to reach the Raspberry Pi under the name gw.wlan from wireless clients.
 
+To ensure WiFi radio is not blocked on your Raspberry Pi, execute the following command:
+
+```sh
+sudo rfkill unblock wlan
+```
+
+### Configure the access point software
+
+Create the hostapd configuration file, located at ```/etc/hostapd/hostapd.conf```, to add the various parameters for your wireless network.
+
+```sh
+sudo nano /etc/hostapd/hostapd.conf
+```
+
+Add the information below to the configuration file.
+
+```sh
+country_code=DE
+interface=wlan0
+ssid=PimixRouter
+hw_mode=a
+channel=7
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=ilovepimix
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+```
+
+To use the 5 GHz band, you can change the operations mode from ```hw_mode=g``` to ```hw_mode=a```. Possible values for hw_mode are:
+
+- a = IEEE 802.11a (5 GHz)
+- b = IEEE 802.11b (2.4 GHz)
+- g = IEEE 802.11g (2.4 GHz)
+- ad = IEEE 802.11ad (60 GHz)
+
 ## Docker build section -- ignore it !
 ```sh
 docker pull vbarrois/pimix
