@@ -58,7 +58,7 @@ java -jar pimix-player.jar
 
 Now you can just upload your mp3 files with your prefered ftp-client directly into /home/music
 
-### Set Pimix as a Service
+### Set Pimix-Player as a Service
 
 ```sh
 sudo nano /etc/systemd/system/pimix.service
@@ -130,10 +130,11 @@ pair <address>
 connect <address>
 ```
 
-Edit java ```sound.properties``` file and add the following lines
+Edit java ```sound.properties``` file:
 ```sh
 sudo nano /usr/lib/jvm/default-java/conf/sound.properties
 ```
+Add the following lines:
 ```sh
 javax.sound.sampled.Clip=com.sun.media.sound.DirectAudioDeviceProvider
 javax.sound.sampled.Port=com.sun.media.sound.PortMixerProvider
@@ -141,7 +142,7 @@ javax.sound.sampled.SourceDataLine=com.sun.media.sound.DirectAudioDeviceProvider
 javax.sound.sampled.TargetDataLine=com.sun.media.sound.DirectAudioDeviceProvider
 ```
 
-Start pulseaudio at boot
+Start Pulseaudio as a Service
 ```sh
 sudo nano /etc/systemd/system/pulseaudio.service 
 ```
