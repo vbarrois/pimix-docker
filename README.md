@@ -49,14 +49,62 @@ sudo reboot
 ```
 ```sh
 docker pull vbarrois/pimix:arm
-docker run -d --name pimix -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
-docker run -d --name Deezldr -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -p 83:1730 bocki/deezloaderrmx
+docker run -d --name pimix --restart always -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
+docker run -d --name Deezldr --restart always -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -p 83:1730 bocki/deezloaderrmx
 sudo chown -R pi:pi /home/music
 cd /home/pimix-player
 java -jar pimix-player.jar
 ```
 
 Now you can just upload your mp3 files with your prefered ftp-client directly into /home/music
+
+### Set Pimix as a Service
+
+```sh
+sudo nano /etc/systemd/system/pimix.service
+```
+Copy/paste the following content
+
+```sh
+[Unit]
+Description=PIMIX
+[Service]
+User=pi
+WorkingDirectory=/home/pimix-player
+ExecStart=/home/pi/start-player
+SuccessExitStatus=143
+TimeoutStopSec=10
+Restart=on-failure
+RestartSec=5
+[Install]
+WantedBy=multi-user.target
+```
+
+```sh
+sudo nano /home/pi/start-player
+```
+
+Copy/paste the following content
+
+```sh
+#!/bin/sh
+cd /home/pimix-player
+sudo /usr/bin/java -jar pimix-player.jar
+```
+
+```sh
+sudo chown pi:pi /home/pi/start-player
+sudo chmod u+x /home/pi/start-player
+```
+
+Start the service
+
+```sh
+sudo systemctl daemon-reload
+sudo systemctl enable pimix.service
+sudo systemctl start pimix
+sudo systemctl status pimix
+```
 
 ### Setup output volume
 ```sh
@@ -81,6 +129,93 @@ trust <address>
 pair <address>
 connect <address>
 ```
+
+## Configure PIMIX as WIFI router
+
+See https://www.raspberrypi.org/documentation/configuration/wireless/access-point-routed.md
+
+### Install the access point and network management software
+
+In order to work as an access point, the Raspberry Pi needs to have the ```hostapd``` access point software package installed:
+```sh
+sudo apt-get install hostapd
+```
+
+Enable the wireless access point service and set it to start when your Raspberry Pi boots:
+```sh
+sudo systemctl unmask hostapd
+sudo systemctl enable hostapd
+```
+
+In order to provide network management services (DNS, DHCP) to wireless clients, the Raspberry Pi needs to have the ```dnsmasq``` software package installed:
+```sh
+sudo apt install dnsmasq
+```
+
+Finally, install ```netfilter-persistent``` and its plugin ```iptables-persistent```. This utilty helps by saving firewall rules and restoring them when the Raspberry Pi boots:
+```sh
+sudo DEBIAN_FRONTEND=noninteractive apt install -y netfilter-persistent iptables-persistent
+```
+
+### Configure the DHCP and DNS services for the wireless network
+
+The DHCP and DNS services are provided by ```dnsmasq```. The default configuration file serves as a template for all possible configuration options, whereas we only need a few. It is easier to start from an empty file.
+
+Rename the default configuration file and edit a new one:
+```sh
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+sudo nano /etc/dnsmasq.conf
+```
+Add the following to the file and save it:
+```sh
+interface=wlan0 # Listening interface
+dhcp-range=192.168.4.2,192.168.4.20,255.255.255.0,24h
+                # Pool of IP addresses served via DHCP
+domain=wlan     # Local wireless DNS domain
+address=/gw.wlan/192.168.4.1
+                # Alias for this router
+```
+
+The Raspberry Pi will deliver IP addresses between 192.168.4.2 and 192.168.4.20, with a lease time of 24 hours, to wireless DHCP clients. You should be able to reach the Raspberry Pi under the name gw.wlan from wireless clients.
+
+To ensure WiFi radio is not blocked on your Raspberry Pi, execute the following command:
+
+```sh
+sudo rfkill unblock wlan
+```
+
+### Configure the access point software
+
+Create the hostapd configuration file, located at ```/etc/hostapd/hostapd.conf```, to add the various parameters for your wireless network.
+
+```sh
+sudo nano /etc/hostapd/hostapd.conf
+```
+
+Add the information below to the configuration file.
+
+```sh
+country_code=DE
+interface=wlan0
+ssid=PimixRouter
+hw_mode=g
+channel=7
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=ilovepimix
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+```
+
+To use the 5 GHz band, you can change the operations mode from ```hw_mode=g``` to ```hw_mode=a```. Possible values for hw_mode are:
+
+- a = IEEE 802.11a (5 GHz)
+- b = IEEE 802.11b (2.4 GHz)
+- g = IEEE 802.11g (2.4 GHz)
+- ad = IEEE 802.11ad (60 GHz)
 
 ## Docker build section -- ignore it !
 ```sh
