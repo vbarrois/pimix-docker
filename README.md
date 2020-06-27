@@ -58,54 +58,6 @@ java -jar pimix-player.jar
 
 Now you can just upload your mp3 files with your prefered ftp-client directly into /home/music
 
-### Set Pimix as a Service
-
-```sh
-sudo nano /etc/systemd/system/pimix.service
-```
-Copy/paste the following content
-
-```sh
-[Unit]
-Description=PIMIX
-[Service]
-User=pi
-WorkingDirectory=/home/pimix-player
-ExecStart=/home/pi/start-player
-SuccessExitStatus=143
-TimeoutStopSec=10
-Restart=on-failure
-RestartSec=5
-[Install]
-WantedBy=multi-user.target
-```
-
-```sh
-sudo nano /home/pi/start-player
-```
-
-Copy/paste the following content
-
-```sh
-#!/bin/sh
-cd /home/pimix-player
-sudo /usr/bin/java -jar pimix-player.jar
-```
-
-```sh
-sudo chown pi:pi /home/pi/start-player
-sudo chmod u+x /home/pi/start-player
-```
-
-Start the service
-
-```sh
-sudo systemctl daemon-reload
-sudo systemctl enable pimix.service
-sudo systemctl start pimix
-sudo systemctl status pimix
-```
-
 ### Setup output volume
 ```sh
 alsamixer
@@ -128,6 +80,43 @@ scan on
 trust <address>
 pair <address>
 connect <address>
+```
+
+Edit java ```sound.properties``` file and add the following lines
+```sh
+sudo nano /usr/lib/jvm/default-java/conf/sound.properties
+```
+```sh
+javax.sound.sampled.Clip=com.sun.media.sound.DirectAudioDeviceProvider
+javax.sound.sampled.Port=com.sun.media.sound.PortMixerProvider
+javax.sound.sampled.SourceDataLine=com.sun.media.sound.DirectAudioDeviceProvider
+javax.sound.sampled.TargetDataLine=com.sun.media.sound.DirectAudioDeviceProvider
+```
+
+Start pulseaudio at boot
+```sh
+sudo nano /etc/systemd/system/pulseaudio.service 
+```
+Add the following lines
+```sh
+[Unit]
+Description=PulseAudio system server
+
+[Service]
+Type=notify
+ExecStart=pulseaudio --daemonize=no --system --realtime --log-target=journal
+ExecStop=pulseaudio -k
+
+[Install]
+WantedBy=multi-user.target
+```
+```sh
+sudo systemctl --system enable pulseaudio.service
+sudo systemctl --system start pulseaudio.service
+```
+Check status with:
+```sh
+systemctl --system status pulseaudio.service
 ```
 
 ## Configure PIMIX as WIFI router
