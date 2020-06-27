@@ -198,7 +198,7 @@ Add the information below to the configuration file.
 country_code=DE
 interface=wlan0
 ssid=PimixRouter
-hw_mode=a
+hw_mode=g
 channel=7
 macaddr_acl=0
 auth_algs=1
