@@ -159,7 +159,7 @@ Check status with:
 systemctl --system status pulseaudio.service
 ```
 
-Pair devices to the bluetooth
+Connect a Bluetooth device
 ```sh
 sudo bluetoothctl
 power on
@@ -170,7 +170,6 @@ trust <address>
 pair <address>
 connect <address>
 ```
-
 
 ## Configure PIMIX as WIFI router
 
