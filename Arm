@@ -1,8 +1,8 @@
 FROM node:slim
 
 ENV NODE_ENV production
-ENV LAN_NIC enp40s0
-ENV WAN_NIC wlxd037458e2dea
+ENV LAN_NIC eth0
+ENV WAN_NIC wlan0
 
 # install make and python to compile nodejs/sqlite3 on arch architecture
 RUN apt-get update || : && apt-get install -y build-essential python nano redis-server libao-dev mpg123 libmpg123-dev network-manager
