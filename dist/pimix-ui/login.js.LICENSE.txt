@@ -17,8 +17,8 @@
  */
 
 /*!
- * Vue.js v2.6.11
- * (c) 2014-2019 Evan You
+ * Vue.js v2.6.12
+ * (c) 2014-2020 Evan You
  * Released under the MIT License.
  */
 
@@ -44,10 +44,10 @@
 
 /*! https://mths.be/utf8js v2.1.2 by @mathias */
 
-/*! nouislider - 14.5.0 - 5/11/2020 */
+/*! nouislider - 14.6.2 - 9/16/2020 */
 
 /**
-  * vue-class-component v7.2.3
+  * vue-class-component v7.2.6
   * (c) 2015-present Evan You
   * @license MIT
   */
@@ -62,7 +62,5 @@
  */
 
 //! moment.js
-
-//! moment.js language configuration
 
 //! moment.js locale configuration

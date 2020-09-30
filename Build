@@ -2,16 +2,21 @@ FROM node:slim
 
 ENV NODE_ENV production
 
+RUN apt-get update || : && apt-get install -y git build-essential python
+
 RUN mkdir /usr/src/pimix
 
-RUN npm install webpack webpack-cli 
+RUN yarn add webpack webpack-cli
 
 ADD /pimix-data/package.json /usr/src/pimix/tmp/pimix-data/package.json
 ADD /pimix-data/.eslintrc /usr/src/pimix/tmp/pimix-data/.eslintrc
 ADD /pimix-data/webpack.config.js /usr/src/pimix/tmp/pimix-data/webpack.config.js
 ADD /pimix-data/config /usr/src/pimix/tmp/pimix-data/config
 ADD /pimix-data/src /usr/src/pimix/tmp/pimix-data/src
-RUN cd /usr/src/pimix/tmp/pimix-data && npm install && rm -rf dist && npx webpack
+ADD /node-wifi /usr/src/pimix/node-wifi
+RUN cd /usr/src/pimix/node-wifi && yarn link
+RUN cd /usr/src/pimix/tmp/pimix-data && yarn link 'node-wifi' && yarn install && rm -rf dist && npx webpack
+
 RUN mv /usr/src/pimix/tmp/pimix-data/dist /usr/src/pimix/pimix-data
 ADD /pimix-data/config /usr/src/pimix/pimix-data/config
 ADD /pimix-data/migrations /usr/src/pimix/pimix-data/migrations
@@ -22,7 +27,7 @@ ADD /pimix-router/.eslintrc /usr/src/pimix/tmp/pimix-router/.eslintrc
 ADD /pimix-router/tsconfig.json /usr/src/pimix/tmp/pimix-router/tsconfig.json
 ADD /pimix-router/webpack.config.js /usr/src/pimix/tmp/pimix-router/webpack.config.js
 ADD /pimix-router/src /usr/src/pimix/tmp/pimix-router/src
-RUN cd /usr/src/pimix/tmp/pimix-router && npm install && rm -rf dist && npx webpack
+RUN cd /usr/src/pimix/tmp/pimix-router && yarn install && rm -rf dist && npx webpack
 RUN mv /usr/src/pimix/tmp/pimix-router/dist /usr/src/pimix/pimix-router
 
 ADD /pimix-ui/package.json /usr/src/pimix/tmp/pimix-ui/package.json
@@ -31,7 +36,7 @@ ADD /pimix-ui/tsconfig.json /usr/src/pimix/tmp/pimix-ui/tsconfig.json
 ADD /pimix-ui/webpack.config.js /usr/src/pimix/tmp/pimix-ui/webpack.config.js
 ADD /pimix-ui/webpack.server.config.js /usr/src/pimix/tmp/pimix-ui/webpack.server.config.js
 ADD /pimix-ui/src /usr/src/pimix/tmp/pimix-ui/src
-RUN cd /usr/src/pimix/tmp/pimix-ui && npm install && rm -rf dist && npx webpack --config webpack.server.config.js && npx webpack --config webpack.config.js
+RUN cd /usr/src/pimix/tmp/pimix-ui && yarn install && rm -rf dist && npx webpack --config webpack.server.config.js && npx webpack --config webpack.config.js
 RUN mv /usr/src/pimix/tmp/pimix-ui/dist /usr/src/pimix/pimix-ui
 
 ADD /pimix-player/app /usr/src/pimix/pimix-player

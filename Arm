@@ -1,9 +1,11 @@
 FROM node:slim
 
 ENV NODE_ENV production
+ENV LAN_NIC enp40s0
+ENV WAN_NIC wlxd037458e2dea
 
 # install make and python to compile nodejs/sqlite3 on arch architecture
-RUN apt-get update || : && apt-get install -y build-essential python nano redis-server libao-dev mpg123 libmpg123-dev
+RUN apt-get update || : && apt-get install -y build-essential python nano redis-server libao-dev mpg123 libmpg123-dev network-manager
 
 RUN mkdir /usr/src/pimix
 
@@ -15,6 +17,7 @@ RUN mkdir /home/pimix-player
 RUN mkdir /home/music
 RUN mkdir /home/covers
 
+ADD /dist/node-wifi /usr/src/pimix/node-wifi
 ADD /dist/pimix-data /usr/src/pimix/pimix-data
 ADD /dist/pimix-router /usr/src/pimix/pimix-router
 ADD /dist/pimix-ui /usr/src/pimix/pimix-ui
@@ -28,7 +31,9 @@ RUN chmod 770 /var/lib/redis
 ADD /mp3gain /usr/src/mp3gain
 RUN cd /usr/src/mp3gain && make install
 
-RUN cd /usr/src/pimix && npm install
+RUN cd /usr/src/pimix/node-wifi && yarn link
+RUN cd /usr/src/pimix/pimix-data && yarn link 'node-wifi'
+RUN cd /usr/src/pimix && yarn install
 
 ENV MUSIC_FOLDER /home/music
 ENV COVER_FOLDER /home/covers
