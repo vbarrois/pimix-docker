@@ -49,7 +49,7 @@ sudo reboot
 ```
 ```sh
 docker pull vbarrois/pimix:arm
-docker run -d --name pimix --restart always -v /home:/home -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
+docker run -d --privileged=true --network=host --name pimix --restart always -v /home:/home -v /var/run/dbus:/var/run/dbus -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
 docker run -d --name Deemix --restart always -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -e ARL=1234567 -e UMASK_SET=022 -e DEEZUI=false -p 83:6595 registry.gitlab.com/bockiii/deemix-docker
 sudo chown -R pi:pi /home/music
 cd /home/pimix-player
@@ -277,7 +277,7 @@ docker pull vbarrois/pimix
 ```
 ```sh
 docker build . -f pimix-docker/Build -t vbarrois/pimix-builder:latest
-docker run -ti --name pimix-build -v ~/projects/pimix/pimix-docker/dist:/home vbarrois/pimix-builder:latest
+docker run -ti --name pimix-build -v ~/projets/pimix/pimix-docker/dist:/home vbarrois/pimix-builder:latest
 ```
 ### Build the Pimix Image on linux/arm
 ```sh
