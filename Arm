@@ -5,7 +5,7 @@ ENV LAN_NIC eth0
 ENV WAN_NIC wlan0
 
 # install make and python to compile nodejs/sqlite3 on arch architecture
-RUN apt-get update || : && apt-get install -y build-essential python nano redis-server libao-dev mpg123 libmpg123-dev network-manager
+RUN apt-get update || : && apt-get install -y git build-essential python nano redis-server libao-dev mpg123 libmpg123-dev network-manager
 
 RUN mkdir /usr/src/pimix
 
@@ -17,7 +17,7 @@ RUN mkdir /home/pimix-player
 RUN mkdir /home/music
 RUN mkdir /home/covers
 
-ADD /dist/node-wifi /usr/src/pimix/node-wifi
+RUN cd /usr/src/pimix && git clone https://github.com/vbarrois/node-wifi.git
 ADD /dist/pimix-data /usr/src/pimix/pimix-data
 ADD /dist/pimix-router /usr/src/pimix/pimix-router
 ADD /dist/pimix-ui /usr/src/pimix/pimix-ui
