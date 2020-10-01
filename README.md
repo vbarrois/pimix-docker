@@ -10,22 +10,9 @@ Burn the Buster image to the SD with Balena Etcher (https://www.balena.io/etcher
 ### Enable SSH
 Pull the SD card out then plug it back in, use a file explorer to create an empty ssh file in the root of the boot disk
 
-### Add WIFI Network
-Create a file in the root of boot called: ```wpa_supplicant.conf```. Then paste the following into it (adjusting for your [ISO 3166 alpha-2 country code](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes), network name and network password):
-
-```
-country=US
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
-
-network={
-    ssid="NETWORK-NAME"
-    psk="NETWORK-PASSWORD"
-}
-```
 ### First start
 
-Eject the micro SD card, boot the Raspberry Pi and login over Wifi
+Eject the micro SD card, boot the Raspberry Pi and login over LAN
 ```sh
 ssh-keygen -R raspberrypi.local
 ssh pi@raspberry.local
@@ -38,18 +25,19 @@ sudo raspi-config
 Select the options for changing the hostname and password. On a new image, it is also recommended to expand the file system (now under the Advanced options). Once the changes are made, reboot.
 
 ```sh
+sudo rfkill unblock 0
 sudo apt-get update -y
 sudo apt-get upgrade -y
-sudo  apt-get install curl -y
+sudo apt-get purge openresolv dhcpcd5
+sudo  apt-get install network-manager curl default-jre -y
 curl -sSL https://get.docker.com | sh
 sudo usermod -aG docker pi
-sudo apt-get install default-jre -y
 echo fs.inotify.max_user_watches=524288 | sudo tee /etc/sysctl.d/40-max-user-watches.conf && sudo sysctl --system
 sudo reboot
 ```
 ```sh
 docker pull vbarrois/pimix:arm
-docker run -d --privileged=true --network=host --name pimix --restart always -v /home:/home -v /var/run/dbus:/var/run/dbus -p 80:80 -p 82:82 -p 81:81 vbarrois/pimix:arm
+docker run -d --privileged=true --network=host --name pimix --restart always -v /home:/home -v /var/run/dbus:/var/run/dbus vbarrois/pimix:arm
 docker run -d --name Deemix --restart always -v /home/music:/downloads -e PUID=1000 -e PGID=1000 -e ARL=1234567 -e UMASK_SET=022 -e DEEZUI=false -p 83:6595 registry.gitlab.com/bockiii/deemix-docker
 sudo chown -R pi:pi /home/music
 cd /home/pimix-player
