@@ -3,9 +3,7 @@
 ## Pi4 installation
 
 ### Burn Raspbian image
-Download the Raspbian Buster Lite image (https://www.raspberrypi.org/downloads/raspbian/)
-
-Burn the Buster image to the SD with Balena Etcher (https://www.balena.io/etcher/)
+Install the last Raspberry Pi OS using Raspberry Pi Imager (https://www.raspberrypi.org/software/) on your SD card
 
 ### Enable SSH
 Pull the SD card out then plug it back in, use a file explorer to create an empty ssh file in the root of the boot disk
