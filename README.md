@@ -2,8 +2,8 @@
 
 ## Pi4 installation
 
-### Burn Raspbian image
-Install the last Raspberry Pi OS using Raspberry Pi Imager (https://www.raspberrypi.org/software/) on your SD card
+### Install Raspberry Pi OS image
+Install the last Raspberry Pi OS Lite using Raspberry Pi Imager (https://www.raspberrypi.org/software/) on your SD card
 
 ### Enable SSH
 Pull the SD card out then plug it back in, use a file explorer to create an empty ssh file in the root of the boot disk
