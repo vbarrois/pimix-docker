@@ -2,18 +2,17 @@ version: '3'
 
 services:
   ledfx:
-    network_mode: host
     image: shirom/ledfx 
     container_name: ledfx
     environment: 
-      - HOST=
+      - HOST=127.0.0.1
       - FORMAT=-r 44100 -f S16_LE -c 2
       - SQUEEZE=0
       - PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native
     devices:
       - /dev/snd:/dev/snd
     ports:
-      - 8888:8888
+      - 84:8888
     command: --user-profiles /profiles --profile de
     volumes:
       - ~/ledfx-config:/app/ledfx-config
