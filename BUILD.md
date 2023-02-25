@@ -11,7 +11,9 @@
     |   |   +-- dist
 ```
 ```sh
-docker build . -f pimix-docker/Build -t vbarrois/pimix-builder:latest
+cd ~/projets/pimix
+docker build . --no-cache -f pimix-docker/Build -t vbarrois/pimix-builder:latest
+cd ~/projets/pimix-docker
 docker run -ti --name pimix-build -v ~/projets/pimix/pimix-docker/dist:/home vbarrois/pimix-builder:latest
 ```
 ### Build the Pimix Image on linux/arm
