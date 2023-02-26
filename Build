@@ -36,12 +36,11 @@ RUN cd /usr/src/pimix/tmp/pimix-translate && yarn link
 ADD /pimix-pwa/package.json /usr/src/pimix/tmp/pimix-pwa/package.json
 ADD /pimix-pwa/tsconfig.json /usr/src/pimix/tmp/pimix-pwa/tsconfig.json
 ADD /pimix-pwa/vite.config.js /usr/src/pimix/tmp/pimix-pwa/vite.config.js
+ADD /pimix-pwa/tailwind.config.js /usr/src/pimix/tmp/pimix-pwa/tailwind.config.js
 ADD /pimix-pwa/index.html /usr/src/pimix/tmp/pimix-pwa/index.html
 ADD /pimix-pwa/src /usr/src/pimix/tmp/pimix-pwa/src
 RUN cd /usr/src/pimix/tmp/pimix-pwa && yarn link 'pimix-translate' && yarn install && yarn build
 RUN mv /usr/src/pimix/tmp/pimix-pwa/dist /usr/src/pimix/pimix-pwa
-
-
 
 ADD /pimix-player/app /usr/src/pimix/pimix-player
 
