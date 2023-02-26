@@ -28,23 +28,6 @@
     "concurrently": "^5.1.0",
     "child_process": "^1.0.2",
     "getmac": "^5.16.0",
-    "hashmap": "^2.4.0",
-    "dayjs": "^1.10.7",
-    "vite": "^4.1.4",
-    "flowbite": "^1.6.3",
-    "flowbite-vue": "^0.0.10",
-    "mitt": "^3.0.0",
-    "pinia": "^2.0.29",
-    "sortablejs": "^1.15.0",
-    "vue": "^3.2.45",
-    "vue-draggable-next": "^2.1.1",
-    "vue-i18n": "^9.2.2",
-    "vue-long-click": "^0.1.0",
-    "vue-router": "4",
-    "vue3-cookies": "^1.0.6",
-    "vue3-lazyload": "^0.2.5-beta",
-    "prettier": "^2.5.1",
-    "tailwindcss": "^3.0.17",
-    "vue-class-component": "8.0.0-rc.1"
+    "hashmap": "^2.4.0"
   }
 }
