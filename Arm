@@ -5,7 +5,7 @@ ENV LAN_NIC eth0
 ENV WAN_NIC wlan0
 
 # install make and python to compile nodejs/sqlite3 on arch architecture
-RUN apt-get update || : && apt-get install -y git build-essential python nano redis-server libao-dev mpg123 libmpg123-dev network-manager
+RUN apt-get update || : && apt-get install -y git build-essential python nano redis-server libao-dev mpg123 libmpg123-dev network-manager nginx
 
 RUN mkdir /usr/src/pimix
 
@@ -22,6 +22,12 @@ ADD /dist/pimix-data /usr/src/pimix/pimix-data
 ADD /dist/pimix-router /usr/src/pimix/pimix-router
 ADD /dist/pimix-pwa /usr/src/pimix/pimix-pwa
 ADD /dist/pimix-player /usr/src/pimix/pimix-player
+
+ADD nginx.server /usr/src/pimix/nginx.server
+RUN rm -R /etc/nginx/sites-available/default
+RUN rm -R /etc/nginx/sites-enabled/default
+RUN ln -s /usr/src/pimix/nginx.server /etc/nginx/sites-available/default
+RUN ln -s /usr/src/pimix/nginx.server /etc/nginx/sites-enabled/default
 
 ADD /redis.conf /etc/redis/redis.conf
 RUN adduser --system --group --no-create-home redis

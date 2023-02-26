@@ -41,6 +41,8 @@ ADD /pimix-pwa/src /usr/src/pimix/tmp/pimix-pwa/src
 RUN cd /usr/src/pimix/tmp/pimix-pwa && yarn link 'pimix-translate' && yarn install && yarn build
 RUN mv /usr/src/pimix/tmp/pimix-pwa/dist /usr/src/pimix/pimix-pwa
 
+
+
 ADD /pimix-player/app /usr/src/pimix/pimix-player
 
 RUN rm -R /usr/src/pimix/tmp
