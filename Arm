@@ -20,7 +20,7 @@ RUN mkdir /home/covers
 RUN cd /usr/src/pimix && git clone https://github.com/vbarrois/node-wifi.git
 ADD /dist/pimix-data /usr/src/pimix/pimix-data
 ADD /dist/pimix-router /usr/src/pimix/pimix-router
-ADD /dist/pimix-ui /usr/src/pimix/pimix-ui
+ADD /dist/pimix-pwa /usr/src/pimix/pimix-pwa
 ADD /dist/pimix-player /usr/src/pimix/pimix-player
 
 ADD /redis.conf /etc/redis/redis.conf
