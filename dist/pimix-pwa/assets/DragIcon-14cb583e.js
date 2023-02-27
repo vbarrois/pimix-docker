@@ -1,4 +1,4 @@
-import{m as Rt,W as ct,q as Yt,_ as Bt,o as jt,c as $t,d as Ht}from"./index-b74e3224.js";/*!
+import{m as Rt,W as ct,q as Yt,_ as Bt,o as jt,c as $t,d as Ht}from"./index-4710a073.js";/*!
   * vue-draggable-next v2.1.0
   * (c) 2021 Anish George
   * @license MIT
