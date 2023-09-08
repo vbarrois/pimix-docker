@@ -4,10 +4,12 @@
 ~/projets
     .
     +-- pimix
-    |   +-- pimix-data
-    |   +-- pimix-router
-    |   +-- pimix-ui
-    |   +-- pimix-docker
+    |   +-- pimix-data // REST API
+    |   +-- pimix-router // Websocket router
+    |   +-- pimix-ui // Deprecated
+    |   +-- pimix-pwa // Personal Web Application
+    |   +-- pimix-translate // Translation files
+    |   +-- pimix-docker // Packager
     |   |   +-- dist
 ```
 ```sh
