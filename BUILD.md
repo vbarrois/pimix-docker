@@ -32,10 +32,10 @@ docker run -ti --name pimix-build -v ~/projets/pimix/pimix-docker/dist:/home vba
 cd ~/projets/pimix/pimix-docker
 ```
 ```sh
-docker build . -f Arm -t vbarrois/pimix:arm
+docker build . -f Arm -t vbarrois/pimix:<version>
 ```
 ```sh
-docker tag vbarrois/pimix:arm pimix:arm
+docker tag vbarrois/pimix:<version> pimix:<version>
 ```
 ```sh
 docker push vbarrois/pimix:arm
