@@ -19,7 +19,7 @@ cd ~/projets/pimix
 docker build . -f pimix-docker/Build -t vbarrois/pimix-builder:latest
 ```
 ```sh
-rm -rf pimix-docker/dist/*
+sudo rm -rf pimix-docker/dist/*
 ```
 ```sh
 docker system prune -f
