@@ -1,8 +1,8 @@
-FROM node:19-slim
+FROM node:20-slim
 
 ENV NODE_ENV production
 
-RUN apt-get update || : && apt-get install -y git build-essential python
+RUN apt-get update || : && apt-get install -y git build-essential python3
 
 RUN mkdir /usr/src/pimix
 
