@@ -40,3 +40,8 @@ docker tag vbarrois/pimix:<version> pimix:<version>
 ```sh
 docker push vbarrois/pimix:arm
 ```
+
+### Create cronjob to start pimix-player
+```sh
+crontab -e
+```
