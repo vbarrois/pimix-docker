@@ -35,7 +35,11 @@ sudo reboot
 ```
 ```sh
 docker pull vbarrois/pimix:arm
-docker run -d --privileged=true --network=host --name pimix --restart always -v /home:/home -v /var/run/dbus:/var/run/dbus vbarrois/pimix:arm
+```
+```sh
+docker run -ti --privileged=true -p 80:80 -p 81:81 -p 82:82 --device /dev/snd --env ALSA_CARD=Generic --name mixme -v /home:/home -v /var/run/dbus:/var/run/dbus vbarrois/mixme:x386.3.23
+```
+```sh
 docker run -d --name Deemix --restart always -v /home/music:/Downloads -e PUID=1000 -e PGID=1000 -e ARL=1234567 -e UMASK_SET=022 -e DEEZUI=false -p 83:6595 registry.gitlab.com/bockiii/deemix-docker
 sudo chown -R pi:pi /home/music
 cd /home/pimix-player
