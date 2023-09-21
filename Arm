@@ -5,7 +5,7 @@ ENV LAN_NIC eth0
 ENV WAN_NIC wlan0
 
 # install make and python to compile nodejs/sqlite3 on arch architecture
-RUN apt-get update || : && apt-get install -y git build-essential python3 nano redis-server libao-dev mpg123 libmpg123-dev network-manager nginx alsa-utils
+RUN apt-get update || : && apt-get install -y git build-essential python3 nano redis-server libao-dev mpg123 libmpg123-dev network-manager nginx alsa-utils default-jre pulseaudio
 
 RUN mkdir /usr/src/pimix
 
@@ -41,6 +41,12 @@ RUN cd /usr/src/pimix/node-wifi && yarn link
 RUN cd /usr/src/pimix/pimix-data && yarn link 'node-wifi'
 RUN cd /usr/src/pimix && yarn install
 
+ADD wait-for-it.sh /usr/src/pimix/wait-for-it.sh
+RUN chmod +x /usr/src/pimix/wait-for-it.sh
+ADD start-player.sh /usr/src/pimix/start-player.sh
+RUN chmod +x /usr/src/pimix/start-player.sh
+
+ENV ALSA_CARD=Generic
 ENV MUSIC_FOLDER /home/music
 ENV COVER_FOLDER /home/covers
 
