@@ -14,6 +14,7 @@ services:
     ports:
       - 84:8888
     command: --user-profiles /profiles --profile de
+    network_mode: host
     volumes:
       - ~/ledfx-config:/app/ledfx-config
       - ~/audio:/app/audio
