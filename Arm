@@ -3,6 +3,12 @@ FROM node:20-slim
 ENV NODE_ENV production
 ENV LAN_NIC eth0
 ENV WAN_NIC wlan0
+ENV ALSA_CARD=Generic
+ENV MUSIC_FOLDER=/home/music
+ENV COVER_FOLDER=/home/covers
+ENV SPOTIFY_CLIENTID=8f66b26e3c424514bcdcb19bba18a8ed
+ENV SPOTIFY_CLIENTSECRET=8b669a6feba1450da5459d9eab28f771
+ENV SPOTIFY_UPDATE_PERIOD_IN_DAYS=30
 
 # install make and python to compile nodejs/sqlite3 on arch architecture
 RUN apt-get update || : && apt-get install -y git build-essential python3 nano redis-server libao-dev mpg123 libmpg123-dev network-manager nginx alsa-utils default-jre pulseaudio
@@ -45,9 +51,5 @@ ADD wait-for-it.sh /usr/src/pimix/wait-for-it.sh
 RUN chmod +x /usr/src/pimix/wait-for-it.sh
 ADD start-player.sh /usr/src/pimix/start-player.sh
 RUN chmod +x /usr/src/pimix/start-player.sh
-
-ENV ALSA_CARD=Generic
-ENV MUSIC_FOLDER /home/music
-ENV COVER_FOLDER /home/covers
 
 CMD ["/usr/src/pimix/startup.sh"]
