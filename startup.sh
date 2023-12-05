@@ -2,7 +2,8 @@
 
 redis-server&
 
-cp -a /usr/src/pimix/pimix-player /home/pimix-player
+rm /home/pimix-player/pimix-player.jar
+cp -n -a /usr/src/pimix/pimix-player /home/pimix-player
 
 cd /usr/src/pimix/pimix-data
 yarn add sequelize-cli
