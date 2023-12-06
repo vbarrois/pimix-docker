@@ -3,7 +3,7 @@
 docker run \
   --privileged=true \
   --name mixme \
-  --restart=always \ 
+  --restart always \
   -p 80:80 \
   -p 81:81 \
   -p 82:82 \
