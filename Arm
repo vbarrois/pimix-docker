@@ -19,7 +19,6 @@ ADD package.json /usr/src/pimix/package.json
 ADD startup.sh /usr/src/pimix/startup.sh
 RUN chmod +x /usr/src/pimix/startup.sh
 
-RUN mkdir /home/pimix-player
 RUN mkdir /home/music
 RUN mkdir /home/covers
 
