@@ -45,3 +45,16 @@ docker push vbarrois/pimix:arm
 ```sh
 crontab -e
 ```
+
+### RTP Multicast config
+```sh
+sudo nano /etc/pulse/default.pa
+```
+```sh
+load-module module-null-sink sink_name=rtp format=s16be channels=2 rate=44100 sink_properties="device.description='RTP Multicast Sink'"
+load-module module-rtp-send source=rtp.monitor destination=192.168.188.101 port=5004 loop=1
+```
+```sh
+pulseaudio -k
+pulseaudio --start
+```
