@@ -15,6 +15,13 @@ docker run \
   --group-add $(getent group audio | cut -d: -f3) \
 vbarrois/mixme:x386.latest
 ```
+## optional MQTT credentials
+```sh
+  -e MQTT_BROKER=
+  -e MQTT_USER=
+  -e MQTT_PASSWORD=
+```
+
 
 # Start Deemix container
 ```sh
