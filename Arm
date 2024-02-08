@@ -1,5 +1,14 @@
 FROM node:20-slim
 
+# install make and python to compile nodejs/sqlite3 on arch architecture
+RUN apt-get update || : && apt-get install -y git build-essential python3 nano redis-server libao-dev mpg123 libmpg123-dev network-manager nginx alsa-utils default-jre pulseaudio locales
+
+# Set the locale
+RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
 ENV NODE_ENV production
 ENV LAN_NIC eth0
 ENV WAN_NIC wlan0
@@ -9,9 +18,6 @@ ENV COVER_FOLDER=/home/covers
 ENV SPOTIFY_CLIENTID=8f66b26e3c424514bcdcb19bba18a8ed
 ENV SPOTIFY_CLIENTSECRET=8b669a6feba1450da5459d9eab28f771
 ENV SPOTIFY_UPDATE_PERIOD_IN_DAYS=30
-
-# install make and python to compile nodejs/sqlite3 on arch architecture
-RUN apt-get update || : && apt-get install -y git build-essential python3 nano redis-server libao-dev mpg123 libmpg123-dev network-manager nginx alsa-utils default-jre pulseaudio
 
 RUN mkdir /usr/src/pimix
 
