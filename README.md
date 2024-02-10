@@ -9,6 +9,7 @@ docker run \
   -p 82:82 \
   -v /home:/home \
   --device /dev/snd \
+  -e MIXMENAME=MyMixerName \
   -e PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \
   -v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
   -v ~/.config/pulse/cookie:/root/.config/pulse/cookie \
@@ -22,6 +23,11 @@ vbarrois/mixme:x386.latest
   -e MQTT_PASSWORD=
 ```
 
+## optional Discord bot
+```sh
+  -e DISCORD_TOKEN=
+  -e DISCORD_CLIENTID=
+```
 
 # Start Deemix container
 ```sh
