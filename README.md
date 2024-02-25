@@ -1,14 +1,19 @@
-# Mixme
+# MixMe
 MixMe est bien plus qu'un simple lecteur de musique - c'est une plateforme privée collaborative conçue pour centraliser et diffuser votre musique .
 Disponible via votre navigateur préféré, MixMe offre une expérience immersive où chaque utilisateur devient le DJ de sa propre bande-son.
 
 ## Centralisation de Votre Musique
 Accédez à toute votre collection de MP3 depuis un seul et même emplacement, éliminant la fragmentation de vos fichiers musicaux. Plus de recherche fastidieuse à travers différents appareils - MixMe simplifie et centralise votre bibliothèque musicale.
 
+Filtrer et triez votre bibliothèque par titres, genres, artistes ainsi que leurs statistiques d'écoute.
+Créez vos filtres et listes personnalisées pour créer des sessions d'écoute et organisez vos sessions en fonction de votre public. 
+
+![image](https://github.com/vbarrois/pimix-docker/assets/13450645/c7dee780-4c92-4188-8732-5573d149b70e)
+
 ## Interaction Collaborative
 Offrant une plateforme participative, MixMe invite chaque utilisateur à contribuer à la sélection musicale. Participez en votant pour vos morceaux préférés, créez et gérez vos playlists personnalisées, et partagez vos découvertes musicales avec d'autres passionnés.
 
-## Lecture Sans Interruption
+## Lecture sans interruption
 Dites adieu aux interruptions entre les morceaux. MixMe assure une transition fluide et sans faille entre les chansons, créant ainsi une expérience d'écoute ininterrompue et immersive. Votre propre radio sans les pubs.
 
 ## Personnalisation Avancée
@@ -17,7 +22,6 @@ Configurez des filtres de lecture automatique pour affiner votre expérience mus
 ## Comment ça Marche
 MixMe est accessible via votre réseau local, permettant à chaque utilisateur, famille, amis, connectés d'explorer, de voter et de contribuer à la playlist partagée. L'interface conviviale offre une navigation intuitive, rendant la découverte et la gestion de la musique aussi simple que quelques clics.
 
-![image](https://github.com/vbarrois/pimix-docker/assets/13450645/c7dee780-4c92-4188-8732-5573d149b70e)
 
 ![image](https://github.com/vbarrois/pimix-docker/assets/13450645/d996cf5b-baed-4bed-b37a-0702eb233489)
 
