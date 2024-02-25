@@ -1,6 +1,6 @@
 {
   "name": "mixme",
-  "version": "4.00",
+  "version": "4.3",
   "description": "MixMe Application Packager",
   "main": "index.js",
   "scripts": {
@@ -34,6 +34,7 @@
     "qrcode": "^1.5.1",
     "animejs": "^3.2.1",
     "mp3tag.js": "^3.7.1",
-    "mqtt": "^5.3.3"
+    "mqtt": "^5.3.3",
+    "discord.js": "^14.14.1"
   }
 }
