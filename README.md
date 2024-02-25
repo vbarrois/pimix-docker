@@ -34,13 +34,11 @@ vbarrois/mixme:x386.latest
 docker run \
   -d \
   --name Deemix \
-  --restart always \ 
   -v /home/music:/Downloads \
   -e PUID=1000 \
   -e PGID=1000 \
-  -e ARL=1234567 \
   -e UMASK_SET=022 \
-  -e DEEZUI=false \
+  -e DEEMIX_SINGLE_USER=true \
   -p 83:6595 \
 registry.gitlab.com/bockiii/deemix-docker
 ```
