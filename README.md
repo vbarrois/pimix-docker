@@ -1,3 +1,6 @@
+![image](https://github.com/vbarrois/pimix-docker/assets/13450645/c7dee780-4c92-4188-8732-5573d149b70e)
+
+
 # Start MixMe with docker
 ```sh
 docker run \
