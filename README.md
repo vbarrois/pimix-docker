@@ -64,7 +64,7 @@ vbarrois/mixme:x386.latest
 docker run \
   -d \
   --name Deemix \
-  -v /home/music:/Downloads \
+  -v /home/music:/downloads \
   -e PUID=1000 \
   -e PGID=1000 \
   -e UMASK_SET=022 \
