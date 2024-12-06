@@ -63,6 +63,11 @@ vbarrois/mixme:x386.latest
   -e DISCORD_CLIENTID=
 ```
 
+## optional Deemix link (IP:PORT)
+```sh
+  -e DEEMIX_DOMAIN=
+```
+
 # Start Deemix container
 ```sh
 docker run \
@@ -75,4 +80,17 @@ docker run \
   -e DEEMIX_SINGLE_USER=true \
   -p 83:6595 \
 registry.gitlab.com/bockiii/deemix-docker
+```
+
+# Start Icecast container
+```sh
+docker run \
+  --restart always \
+  -p 8000:8000 \
+  -e ICECAST_SOURCE_PASSWORD=mixme \
+  -e ICECAST_ADMIN_PASSWORD=mixme \
+  -e ICECAST_PASSWORD=mixme \
+  -e ICECAST_RELAY_PASSWORD=mixme \
+  -e ICECAST_HOSTNAME=mixme \
+moul/icecast
 ```
