@@ -1,17 +1,31 @@
 FROM node:22-slim
 
-# install make and python to compile nodejs/sqlite3 on arch architecture
-RUN apt-get update || : && apt-get install -y git build-essential python3 nano redis-server libao-dev mpg123 libmpg123-dev network-manager nginx alsa-utils default-jre pulseaudio locales
+# install dependencies for pimix
+RUN apt-get update || : && apt-get install -y \
+    git \
+    build-essential \
+    python3 \
+    nano \
+    redis-server \
+    libao-dev \
+    mpg123 \
+    libmpg123-dev \
+    network-manager \
+    nginx \
+    alsa-utils \
+    default-jre \
+    pulseaudio \
+    locales
 
 # Set the locale
 RUN sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LANGUAGE=en_US:en
+ENV LC_ALL=en_US.UTF-8
 
-ENV NODE_ENV production
-ENV LAN_NIC eth0
-ENV WAN_NIC wlan0
+ENV NODE_ENV=production
+ENV LAN_NIC=eth0
+ENV WAN_NIC=wlan0
 ENV ALSA_CARD=Generic
 ENV MUSIC_FOLDER=/home/music
 ENV COVER_FOLDER=/home/covers
@@ -21,40 +35,56 @@ ENV SPOTIFY_UPDATE_PERIOD_IN_DAYS=30
 
 RUN mkdir /usr/src/pimix
 
+# Add package.json and ecosystem config
 ADD package.json /usr/src/pimix/package.json
-ADD startup.sh /usr/src/pimix/startup.sh
+ADD ecosystem.config.js /usr/src/pimix/ecosystem.config.js
+ADD startup-pm2.sh /usr/src/pimix/startup.sh
 RUN chmod +x /usr/src/pimix/startup.sh
 
 RUN mkdir /home/music
 RUN mkdir /home/covers
 
+# Clone node-wifi
 RUN cd /usr/src/pimix && git clone https://github.com/vbarrois/node-wifi.git
+
+# Add built applications from dist
 ADD /dist/pimix-data /usr/src/pimix/pimix-data
 ADD /dist/pimix-router /usr/src/pimix/pimix-router
 ADD /dist/pimix-pwa /usr/src/pimix/pimix-pwa
 ADD /dist/pimix-player /usr/src/pimix/pimix-player
 
+# Configure nginx
 ADD nginx.server /usr/src/pimix/nginx.server
-RUN rm -R /etc/nginx/sites-available/default
-RUN rm -R /etc/nginx/sites-enabled/default
+RUN rm -f /etc/nginx/sites-available/default
+RUN rm -f /etc/nginx/sites-enabled/default
 RUN ln -s /usr/src/pimix/nginx.server /etc/nginx/sites-available/default
 RUN ln -s /usr/src/pimix/nginx.server /etc/nginx/sites-enabled/default
 
+# Configure redis
 ADD /redis.conf /etc/redis/redis.conf
-RUN adduser --system --group --no-create-home redis
-RUN chown redis:redis /var/lib/redis
-RUN chmod 770 /var/lib/redis
+RUN adduser --system --group --no-create-home redis || true
+RUN chown redis:redis /var/lib/redis || true
+RUN chmod 770 /var/lib/redis || true
 
+# Install mp3gain
 ADD /mp3gain /usr/src/mp3gain
 RUN cd /usr/src/mp3gain && make install
 
+# Install PM2 globally
+RUN npm install -g pm2
+
+# Link node-wifi and install dependencies
 RUN cd /usr/src/pimix/node-wifi && yarn link
 RUN cd /usr/src/pimix/pimix-data && yarn link 'node-wifi'
 RUN cd /usr/src/pimix && yarn install
 
+# Add utility scripts
 ADD wait-for-it.sh /usr/src/pimix/wait-for-it.sh
 RUN chmod +x /usr/src/pimix/wait-for-it.sh
 ADD start-player.sh /usr/src/pimix/start-player.sh
 RUN chmod +x /usr/src/pimix/start-player.sh
+
+# Expose ports
+EXPOSE 80 81 82
 
 CMD ["/usr/src/pimix/startup.sh"]

@@ -1,8 +1,9 @@
-FROM node:20-slim
+FROM node:22-slim
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
-RUN apt-get update || : && apt-get install -y git build-essential python3
+# Install build tools + JDK for Java compilation
+RUN apt-get update || : && apt-get install -y git build-essential python3 default-jdk
 
 RUN mkdir /usr/src/pimix
 
@@ -43,9 +44,39 @@ ADD /pimix-pwa/src /usr/src/pimix/tmp/pimix-pwa/src
 RUN cd /usr/src/pimix/tmp/pimix-pwa && yarn link 'pimix-translate' && yarn install && yarn build
 RUN mv /usr/src/pimix/tmp/pimix-pwa/dist /usr/src/pimix/pimix-pwa
 
-ADD /pimix-player/app /usr/src/pimix/pimix-player
+# Build Java player
+ADD /pimix-player/src /usr/src/pimix/tmp/pimix-player/src
+ADD /pimix-player/lib /usr/src/pimix/tmp/pimix-player/lib
+ADD /pimix-player/app /usr/src/pimix/tmp/pimix-player/app
+ADD /pimix-player/natives /usr/src/pimix/tmp/pimix-player/natives
 
-RUN rm -R /usr/src/pimix/tmp
+# Compile Java sources (ISO-8859-1 encoding for accented characters)
+# Exclude discord folder and DiscordAudioBot.java due to JDA API version conflicts
+RUN mkdir -p /usr/src/pimix/tmp/pimix-player/build && \
+    find /usr/src/pimix/tmp/pimix-player/src -name "*.java" ! -path "*/discord/*" ! -name "DiscordAudioBot.java" > /tmp/sources.txt && \
+    javac -encoding ISO-8859-1 \
+          -d /usr/src/pimix/tmp/pimix-player/build \
+          -cp "/usr/src/pimix/tmp/pimix-player/lib/*:/usr/src/pimix/tmp/pimix-player/app/*" \
+          @/tmp/sources.txt
+
+# Create manifest and jar
+# Note: Using -cp flag instead of manifest Class-Path for simplicity
+RUN echo 'Manifest-Version: 1.0' > /usr/src/pimix/tmp/pimix-player/MANIFEST.MF && \
+    echo 'Main-Class: main.MixMe' >> /usr/src/pimix/tmp/pimix-player/MANIFEST.MF && \
+    echo '' >> /usr/src/pimix/tmp/pimix-player/MANIFEST.MF
+
+RUN cd /usr/src/pimix/tmp/pimix-player/build && \
+    jar cfm /usr/src/pimix/tmp/pimix-player/app/pimix-player.jar \
+        /usr/src/pimix/tmp/pimix-player/MANIFEST.MF \
+        .
+
+# Copy player files to final location
+RUN mkdir -p /usr/src/pimix/pimix-player && \
+    cp -r /usr/src/pimix/tmp/pimix-player/app/* /usr/src/pimix/pimix-player/ && \
+    cp -r /usr/src/pimix/tmp/pimix-player/lib /usr/src/pimix/pimix-player/ && \
+    cp -r /usr/src/pimix/tmp/pimix-player/natives /usr/src/pimix/pimix-player/
+
+RUN rm -rf /usr/src/pimix/tmp
 
 ADD pimix-docker/export.sh /usr/src/pimix/export.sh
 RUN chmod +x /usr/src/pimix/export.sh
